@@ -6,8 +6,92 @@
 		<title>Get It Done</title>
 		<link rel="stylesheet" href="./css/reset.css" />
 		<link rel="stylesheet" href="./css/colors.css" />
+		<link rel="stylesheet" href="./css/style.css" />
 	</head>
 	<body>
+		<div class="container">
+			<nav class="navbar">
+				<button class="config-button">
+					<i class="fa-solid fa-gear"></i>
+					<span class="config-button__text">Configurações</span>
+				</button>
+			</nav>
+
+			<main class="content">
+				<div class="column">
+					<div class="column__header">
+						<span class="column__title">Backlog</span>
+						<button class="column__options">
+							<i class="fa-solid fa-ellipsis"></i>
+						</button>
+					</div>
+					<section class="column__tasks">
+						<article class="task">
+							<span class="task__title">Título</span>
+							<button class="task__options">
+								<i class="fa-solid fa-ellipsis"></i>
+							</button>
+						</article>
+						<article class="task">
+							<span class="task__title">Título</span>
+							<button class="task__options">
+								<i class="fa-solid fa-ellipsis"></i>
+							</button>
+						</article>
+						<article class="task">
+							<span class="task__title">Título</span>
+							<button class="task__options">
+								<i class="fa-solid fa-ellipsis"></i>
+							</button>
+						</article>
+					</section>
+					<button class="column__create-button">
+						<i class="fa-solid fa-plus"></i>
+						<span>Adicionar tarefa</span>
+					</button>
+				</div>
+				<div class="column">
+					<div class="column__header">
+						<span class="column__title">Backlog</span>
+						<button class="column__options">
+							<i class="fa-solid fa-ellipsis"></i>
+						</button>
+					</div>
+					<section class="column__tasks">
+						<article class="task">
+							<span class="task__title">Título</span>
+							<button class="task__options">
+								<i class="fa-solid fa-ellipsis"></i>
+							</button>
+						</article>
+						<article class="task">
+							<span class="task__title">Título</span>
+							<button class="task__options">
+								<i class="fa-solid fa-ellipsis"></i>
+							</button>
+						</article>
+						<article class="task">
+							<span class="task__title">Título</span>
+							<button class="task__options">
+								<i class="fa-solid fa-ellipsis"></i>
+							</button>
+						</article>
+					</section>
+					<button class="column__create-button">
+						<i class="fa-solid fa-plus"></i>
+						<span>Adicionar tarefa</span>
+					</button>
+				</div>
+
+				<button class="create-column-button">
+					<i class="fa-solid fa-plus"></i>
+					<span class="create-column-button__text"
+						>Adicionar lista</span
+					>
+				</button>
+			</main>
+		</div>
+
 		<script
 			src="https://kit.fontawesome.com/e7fc9f162e.js"
 			crossorigin="anonymous"

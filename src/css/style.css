@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+.container {
+	font-family: "Poppins", sans-serif;
+	background-color: var(--darkMain);
+	min-height: 100vh;
+	color: var(--textWhite);
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.navbar {
+	display: flex;
+	justify-content: end;
+}
+
+.config-button {
+	background-color: var(--darkSecondary);
+	color: var(--textWhite);
+	padding: 0.75rem;
+	border-radius: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	font-size: 1rem;
+}
+
+.content {
+	display: flex;
+	align-items: start;
+	padding: 1.75rem 0.75rem;
+	overflow-y: auto;
+	max-width: 100vw;
+	width: full;
+	flex: 1 1 0%;
+	gap: 1rem;
+}
+
+.create-column {
+	max-width: 300px;
+	min-width: 250px;
+	background-color: var(--darkSecondary);
+	width: 100%;
+	padding: 0.75rem;
+	border-radius: 0.5rem;
+}
+
+.create-column__title {
+	display: block;
+	color: var(--textGray);
+	font-size: 1rem;
+	margin-bottom: 1rem;
+	opacity: 70%;
+}
+
+.create-column__buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.create-column__add {
+	background-color: var(--darkThird);
+	padding: 0.5rem 0.75rem;
+	color: var(--textWhite);
+	font-size: 1rem;
+	border-radius: 0.5rem;
+}
+
+.create-column__cancel {
+	background-color: var(--darkThird);
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 100%;
+	color: var(--textWhite);
+	font-size: 1rem;
+}
+
+.column {
+	background-color: var(--darkSecondary);
+	max-width: 300px;
+	min-width: 250px;
+	width: 100%;
+	padding: 1rem;
+	border-radius: 0.5rem;
+}
+
+.column__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.75rem;
+}
+
+.column__options {
+	color: var(--textWhite);
+}
+
+.column__tasks {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.column__create-button {
+	background-color: var(--darkThird);
+	padding: 0.75rem;
+	color: var(--textWhite);
+	border-radius: 0.5rem;
+	margin-top: 1rem;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 1rem;
+}
+
+.task {
+	background-color: var(--darkThird);
+	padding: 0.75rem;
+	border-radius: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.task__options {
+	color: var(--textWhite);
+}
+
+.task__title {
+	color: var(--textWhite);
+	font-size: 1rem;
+}
+
+.create-column-button {
+	background-color: var(--darkSecondary);
+	padding: 0.75rem;
+	color: var(--textWhite);
+	border-radius: 0.5rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 1rem;
+	min-width: 250px;
+	max-width: 300px;
+}
