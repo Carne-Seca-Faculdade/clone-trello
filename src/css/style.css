@@ -17,7 +17,14 @@
 
 /* add*/
 .name-text {
-	font-size: 30px;
+	font-size: 40px;
+}
+
+/* cabeçalho pra facilitar o alinhamento do título e o botão de background */
+.cabecalho {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 /* add*/
@@ -48,8 +55,8 @@
 }
 
 .color-box {
-	width: 40px;
-	height: 30px;
+	width: 50px;
+	height: 40px;
 	cursor: pointer;
 	border: 1px solid #ccc;
 }
@@ -63,6 +70,7 @@
 /* Estilo para o botão "Configurações" */
 .config-button {
 	display: flex;
+	height: 40px;
 	justify-content: flex-end;
 	/* Alinha o botão à direita */
 	margin-right: 5px;

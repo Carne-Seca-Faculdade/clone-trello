@@ -8,16 +8,22 @@
 	<link rel="stylesheet" href="./css/reset.css" />
 	<link rel="stylesheet" href="./css/colors.css" />
 	<link rel="stylesheet" href="./css/style.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div class="container"> <!--Div container-->
-		<div class="left-content">
-			<span class=" name-text">Get It Done</span>
-		</div>
-		<nav class="config-button">
-			<button onclick=" toggleColorPalette()">Change BackGround</button>
-		</nav>
+		<div class="cabecalho"> <!-- Div para ajudar a estilizar o título e o botão -->
+			<div class="left-content">
+				<span class=" name-text" style="font-family: 'Syncopate'">Get It Done</span>
+		    </div>
+		    <nav class="config-button">
+				<button onclick=" toggleColorPalette()" style="font-family: 'Syncopate'">Change Background</button>
+		    </nav>
+	    </div> <!-- Fim do "cabeçalho"-->
 		<div id="boxColors" class="paletteColors">
 			<div class="paletteColors-content">
 				<div class="color-box" style="background-color: #3498db" onclick="changeBackgroundColor('#3498db')">
