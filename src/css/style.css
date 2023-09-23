@@ -15,18 +15,75 @@
 	justify-content: end;
 }
 
-.config-button {
-	background-color: var(--darkSecondary);
-	color: var(--textWhite);
-	padding: 0.75rem;
-	border-radius: 0.5rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.5rem;
-	font-size: 1rem;
+/* add*/
+.name-text {
+	font-size: 30px;
 }
 
+/* add*/
+/* Estilos para a paleta de cores */
+.paletteColors {
+	display: none;
+	/* Inicialmente oculta */
+	position: fixed;
+	top: 50px;
+	right: 0px;
+	padding: 20px;
+	box-shadow: 1rem;
+	opacity: 0;
+
+}
+
+.paletteColors.active {
+	display: block;
+	opacity: 1;
+}
+
+.paletteColors-content {
+	display: flex;
+	flex-wrap: wrap;
+
+}
+
+.color-box {
+	width: 40px;
+	height: 30px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+}
+
+.color-box:hover {
+	border: 1px solid gray;
+	/* Adiciona um destaque quando hover */
+}
+
+/*add*/
+/* Estilo para o botão "Configurações" */
+.config-button {
+	display: flex;
+	justify-content: flex-end;
+	/* Alinha o botão à direita */
+	margin-right: 5px;
+	/* Adiciona uma margem à direita para o espaçamento */
+	transition: background-color 0.3s;
+}
+
+.config-button button {
+
+	padding: 10px 5px;
+	background-color: black;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.config-button button:hover {
+	background-color: black;
+	/* Altera a cor quando hover */
+}
+
+/*daqui pra baixo nao alterei*/
 .content {
 	display: flex;
 	align-items: start;
