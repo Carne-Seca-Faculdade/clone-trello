@@ -1,55 +1,71 @@
 body {
-    margin: 0px;
-    background: #81ecec;
-  }
-  
-  nav {
-    background-color: black;
-    color: white;
-    display: flex;
-    align-items: center;
-  }
-  
-  button {
-    position: absolute;
-    right: 10px;
-    background-color: #dfdfdf;
-    display: flex;
-    justify-content: right;
-  }
-  
-  div {
-    height: 50px;
-    width: 25%;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    background: white;
-  }
-  
-  #a {
-    flex: 1;
-    background: #1abc9c;
-    color: #1abc9c;
-  }
-  #b {
-    flex: 1;
-    background: #e74c3c;
-    color: #e74c3c;
-  }
-  #c {
-    flex: 1;
-    background: #95a5a6;
-    color: #95a5a6;
-  }
-  #d {
-    flex: 1;
-    background: #f39c12;
-    color: #f39c12;
-  }
-  #e {
-    flex: 1;
-    background: #f1c40f;
-    color: #f1c40f;
-  }
-  
+  margin: 0px;
+  background: #81ecec;
+}
+
+nav {
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+button {
+  position: absolute;
+  right: 10px;
+  background-color: #dfdfdf;
+  display: flex;
+  justify-content: right;
+  cursor: pointer;
+}
+
+div {
+  text-align: center;
+  height: 100px;
+  width: 5%;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background: rgba(255, 254, 254, 0.857);
+  cursor: pointer;
+  margin-left: 91%;
+}
+
+#a {
+  flex: 1;
+  display: block;
+  margin-bottom: 2px;
+  background: #1abc9c;
+  color: #1abc9c;
+}
+#b {
+  flex: 1;
+  display: block;
+  margin-bottom: 1px;
+  background: #e74c3c;
+  color: #e74c3c;
+}
+#c {
+  flex: 1;
+  display: block;
+  margin-bottom: 2px;
+  background: #95a5a6;
+  color: #95a5a6;
+}
+#d {
+  flex: 1;
+  display: block;
+  margin-bottom: 2px;
+  background: #f39c12;
+  color: #f39c12;
+}
+#e {
+  flex: 1;
+  display: block;
+  height: 20px;
+  width: 20;
+  margin-bottom: 1px;
+  background: #f1c40f;
+  color: #f1c40f;
+}
+
