@@ -1,13 +1,36 @@
-function bgChangeDiv() {
-  let bgChangeDiv = document.getElementById("bgChangeDiv")
-  if (bgChangeDiv.style.display === "none") {
-    bgChangeDiv.style.display = "block"
-  } else {
-    bgChangeDiv.style.display = "none"
-  }
+const colorPalleteWrapper = document.querySelector(".colorPaletteWrapper");
+const documentBody = document.body;
+
+function toggleColorPalette() {
+	console.log("should toggle color palette");
+	colorPalleteWrapper.classList.toggle("hidden");
 }
 
-const bgchange = (id) => {
-  console.log(id)
-  document.body.style.background = document.getElementById(id).innerHTML
+function handleColorPaletteClick(element) {
+	console.log(element);
+	const color = element.innerHTML;
+	changeBackground(color);
 }
+
+function changeBackground(color) {
+	documentBody.style.backgroundColor = color;
+	saveBackgroundToStorage(color);
+}
+
+function saveBackgroundToStorage(color) {
+	localStorage.setItem("backgroundColor", color);
+}
+
+function getBackgroundFromStorage() {
+	const color = localStorage.getItem("backgroundColor");
+	return color;
+}
+
+function handlePageLoad() {
+	const storageColor = getBackgroundFromStorage();
+	if (storageColor) {
+		changeBackground(storageColor);
+	}
+}
+
+window.addEventListener("DOMContentLoaded", handlePageLoad);

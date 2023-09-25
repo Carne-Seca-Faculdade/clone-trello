@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Get It Done</title>
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/colors.css" />
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Get It Done</title>
-	<link rel="stylesheet" href="./css/reset.css" />
-	<link rel="stylesheet" href="./css/colors.css" />
-	<link rel="stylesheet" href="./css/style.css" />
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Syncopate:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-</head>
-
-<body>
-	<div class="container"> <!--Div container-->
-		<div class="cabecalho"> <!-- Div para ajudar a estilizar o título e o botão -->
-			<div class="left-content">
-				<span class=" name-text" style="font-family: 'Syncopate'">Get It Done</span>
-		    </div>
-		    <nav class="config-button">
-					
-				<button onclick="bgChangeDiv() " style="font-family: 'Syncopate'">Change Background
-					<i
-						class="fa-solid fa-palette" >
-					</i>
-				</button>
-		    </nav>
-	    </div> <!-- Fim do "cabeçalho"-->
-		<div id="bgChangeDiv" class="paletteColors">
-			<div >
-				<a onclick="bgchange(id)" id="a"> #1abc9c </a>
-				<a onclick="bgchange(id)" id="b"> #e74c3c </a>
-				<a onclick="bgchange(id)" id="c"> #95a5a6 </a>
-				<a onclick="bgchange(id)" id="d"> #f39c12 </a>
-				<a onclick="bgchange(id)" id="e"> #f1c40f </a>
-				<a onclick="bgchange(id)" id="g"> #2b2b2b </a>
+	<body class="container">
+		<nav class="navbar">
+			<span class="navbar__logo">Get It Done</span>
+			<button
+				class="change-background-button"
+				onclick="toggleColorPalette()"
+			>
+				<span>Change Background</span>
+				<i class="fa-solid fa-palette"></i>
+			</button>
+			<div class="colorPaletteWrapper hidden">
+				<div onclick="handleColorPaletteClick(this)" id="a">
+					#1abc9c
+				</div>
+				<div onclick="handleColorPaletteClick(this)" id="b">
+					#e74c3c
+				</div>
+				<div onclick="handleColorPaletteClick(this)" id="c">
+					#95a5a6
+				</div>
+				<div onclick="handleColorPaletteClick(this)" id="d">
+					#f39c12
+				</div>
+				<div onclick="handleColorPaletteClick(this)" id="e">
+					#f1c40f
+				</div>
+				<div onclick="handleColorPaletteClick(this)" id="g">
+					#2b2b2b
+				</div>
 			</div>
-		</div>
-	</div>
+		</nav>
 
-		<!--daqui pra baixo não alterei-->
 		<main class="content">
 			<div class="column">
 				<div class="column__header">
@@ -113,10 +112,11 @@
 				<span class="create-column-button__text">Adicionar lista</span>
 			</button>
 		</main>
-	</div> <!--Div Container-->
 
-	<script src="https://kit.fontawesome.com/e7fc9f162e.js" crossorigin="anonymous"></script>
-	<script src="./js/main.js"></script>
-</body>
-
+		<script
+			src="https://kit.fontawesome.com/e7fc9f162e.js"
+			crossorigin="anonymous"
+		></script>
+		<script src="./js/main.js"></script>
+	</body>
 </html>
