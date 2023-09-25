@@ -21,21 +21,25 @@
 				<span class=" name-text" style="font-family: 'Syncopate'">Get It Done</span>
 		    </div>
 		    <nav class="config-button">
-				<button onclick=" toggleColorPalette()" style="font-family: 'Syncopate'">Change Background</button>
+					
+				<button onclick="bgChangeDiv() " style="font-family: 'Syncopate'">Change Background
+					<i
+						class="fa-solid fa-palette" >
+					</i>
+				</button>
 		    </nav>
 	    </div> <!-- Fim do "cabeçalho"-->
-		<div id="boxColors" class="paletteColors">
-			<div class="paletteColors-content">
-				<div class="color-box" style="background-color: #3498db" onclick="changeBackgroundColor('#3498db')">
-				</div>
-				<div class="color-box" style="background-color: #e74c3c" onclick="changeBackgroundColor('#e74c3c')">
-				</div>
-				<div class="color-box" style="background-color: #ffffff" onclick="changeBackgroundColor('#ffffff')">
-				</div>
-				<div class="color-box" style="background-color: #9b59b6" onclick="changeBackgroundColor('#9b59b6')">
-				</div>
+		<div id="bgChangeDiv" class="paletteColors">
+			<div >
+				<a onclick="bgchange(id)" id="a"> #1abc9c </a>
+				<a onclick="bgchange(id)" id="b"> #e74c3c </a>
+				<a onclick="bgchange(id)" id="c"> #95a5a6 </a>
+				<a onclick="bgchange(id)" id="d"> #f39c12 </a>
+				<a onclick="bgchange(id)" id="e"> #f1c40f </a>
+				<a onclick="bgchange(id)" id="g"> #2b2b2b </a>
 			</div>
 		</div>
+	</div>
 
 		<!--daqui pra baixo não alterei-->
 		<main class="content">

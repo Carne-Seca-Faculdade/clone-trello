@@ -3,7 +3,6 @@
 .container {
 	font-family: "Poppins", sans-serif;
 	background-color: var(--darkMain);
-	min-height: 100vh;
 	color: var(--textWhite);
 	padding: 0.5rem;
 	display: flex;
@@ -29,29 +28,72 @@
 
 /* add*/
 /* Estilos para a paleta de cores */
-.paletteColors {
+.paletteColors{
 	display: none;
-	/* Inicialmente oculta */
-	position: fixed;
-	top: 50px;
-	right: 0px;
-	padding: 20px;
-	box-shadow: 1rem;
-	opacity: 0;
-
+}
+.paletteColors:hover{
+	width: 227px;
+	margin-left: auto;
+	padding-right: 5px;
+	
+  
+  
+  
+  
 }
 
-.paletteColors.active {
-	display: block;
-	opacity: 1;
+#a {
+  flex: 1;
+  display: block;
+	border: 2px solid #fff;
+  background: #1abc9c;
+  color: transparent;
+	cursor: pointer;
 }
-
-.paletteColors-content {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-
-
+#b {
+  flex: 1;
+  display: block;
+  
+	border: 2px solid #fff;
+  background: #e74c3c;
+  color: transparent;
+	cursor: pointer;
+}
+#c {
+  flex: 1;
+  display: block;
+  
+	border: 2px solid #fff;
+  background: #95a5a6;
+  color: transparent;
+	cursor: pointer;
+}
+#d {
+  flex: 1;
+  display: block;
+  
+	border: 2px solid #fff;
+  background: #f39c12;
+  color: transparent;
+	cursor: pointer;
+}
+#e {
+  flex: 1;
+  display: block;
+  
+	border: 2px solid #fff;
+  background: #f1c40f;
+  color: transparent;
+	cursor: pointer;
+}
+#g {
+  flex: 1;
+  display: block;
+  
+	border: 2px solid #fff;
+  background: #2b2b2b;
+  color: transparent;
+	cursor: pointer;
 }
 
 .color-box {

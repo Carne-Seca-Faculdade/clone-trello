@@ -1,4 +1,4 @@
-/*Add*/
+/*Add*/ /*
 // Altera a cor de fundo da página
 function changeBackgroundColor(color) {
     document.body.style.backgroundColor = color;
@@ -17,4 +17,19 @@ function toggleColorPalette() {
     isPaletteVisible = !isPaletteVisible;
     const boxColors = document.getElementById('boxColors');
     boxColors.classList.toggle('active', isPaletteVisible);
+}
+*/
+
+function bgChangeDiv() {
+  let bgChangeDiv = document.getElementById("bgChangeDiv")
+  if (bgChangeDiv.style.display === "none") {
+    bgChangeDiv.style.display = "block"
+  } else {
+    bgChangeDiv.style.display = "none"
+  }
+}
+
+const bgchange = (id) => {
+  console.log(id)
+  document.body.style.background = document.getElementById(id).innerHTML
 }
