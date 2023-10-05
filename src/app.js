@@ -1,4 +1,7 @@
-import { loadBackgroundColor } from "./services/BackgroundColor.js";
+import {
+	handleColorInputValueChange,
+	loadBackgroundColor,
+} from "./services/BackgroundColor.js";
 import { loadColumns } from "./services/Columns.js";
 import Store from "./services/Store.js";
 
@@ -10,5 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	loadBackgroundColor();
 	loadColumns();
 
-	console.log("DOM should be loaded");
+	const colorPickerInput = document.querySelector("#colorPickerInput");
+
+	colorPickerInput.addEventListener("change", handleColorInputValueChange);
 });
