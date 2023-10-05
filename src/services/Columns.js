@@ -1,4 +1,5 @@
 import { getFromLocalStorage } from "../utils/getFromLocalStorage.js";
+import { updateLocalStorage } from "../utils/updateLocalStorage.js";
 
 export function loadColumns() {
 	const columns = getFromLocalStorage("columns");
@@ -31,6 +32,7 @@ export function handleAddColumnButtonClick() {
 	createColumnInput.value = "";
 	console.log("The new column is", newColumn);
 	handleCreateColumnToggle();
+	updateLocalStorage("columns", app.store.columns);
 	renderColumns();
 }
 
@@ -54,6 +56,7 @@ export function renderColumns() {
 	if (columns && columns.length > 0) {
 		const columnsHTML = columns.map(getColumnHTML).join("");
 		columnsContainer.innerHTML = columnsHTML;
+		handleCreateColumnToggle();
 	}
 }
 
