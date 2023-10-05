@@ -1,6 +1,6 @@
-import { loadBackgroundColor } from "./services/BackgroundColor";
-import { loadColumns } from "./services/Columns";
-import Store from "./services/Store";
+import { loadBackgroundColor } from "./services/BackgroundColor.js";
+import { loadColumns } from "./services/Columns.js";
+import Store from "./services/Store.js";
 
 window.app = {
 	store: Store,
@@ -10,5 +10,5 @@ window.addEventListener("DOMContentLoaded", () => {
 	loadBackgroundColor();
 	loadColumns();
 
-	console.log("DOM SHOULD BE LOADED!");
+	console.log("DOM should be loaded");
 });
