@@ -157,11 +157,16 @@
 
 .task__options {
 	color: var(--textWhite);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
 }
 
 .task__title {
 	color: var(--textWhite);
 	font-size: 1rem;
+	flex: 1 1 0%;
 }
 
 .create-task-form {
