@@ -142,6 +142,29 @@ function editColumnTitleById(columnId) {
 	renderColumns();
 }
 
+function handleTaskDropByDrag(event) {
+	event.preventDefault();
+	console.log("Task was dropped");
+	try {
+		const task = event.dataTransfer.getData("application/json");
+		const taskAsObject = JSON.parse(task);
+		const columnId = event.target.id.split("-")[1];
+		const taskHTML = getColumnTaskHTML(taskAsObject, columnId);
+		console.log("The task dropped is", taskAsObject);
+		console.log("The column id is", columnId);
+		console.log("The task HTML is", taskHTML);
+		const tasksContainer = document.querySelector(`#tasks-${columnId}`);
+		tasksContainer.innerHTML += taskHTML;
+	} catch (error) {
+		alert("Erro ao mover tarefa");
+		console.log(error);
+	}
+}
+
+function allowTaskDrop(event) {
+	event.preventDefault();
+}
+
 function renderColumns() {
 	const columnsContainer = document.querySelector(".columns");
 	columnsContainer.innerHTML = "";
@@ -277,10 +300,23 @@ function handleCancelTaskButtonClick(columnId) {
 	createTaskButton.classList.toggle("hidden");
 }
 
+function handleTaskDrag(event) {
+	console.log("Task was dragged");
+
+	const task = {
+		id: event.target.id,
+		content: event.target.querySelector(".task__title").textContent,
+	};
+	const taskAsJson = JSON.stringify(task);
+	event.dataTransfer.setData("application/json", taskAsJson);
+}
+
 // FUNÇÕES DE GERAR HTML
 function getColumnHTML(column) {
 	return `
-		<div class="column" id="column-${column.id}">
+		<div class="column" id="column-${
+			column.id
+		}" dropzone="copy" ondrop="handleTaskDropByDrag(event)" ondragover="allowTaskDrop(event)">
 			<div class="column__header">
 				<span class="column__title">${column.title}</span>	
 				<div class="column__options">
@@ -309,7 +345,7 @@ function getColumnHTML(column) {
 function getColumnTaskHTML(task, columnId) {
 	console.log("the task received is ", task);
 	return `
-		<article class="task" id="${task.id}">
+		<article class="task" id="${task.id}" draggable="true" ondragstart="handleTaskDrag(event)">
 			<span class="task__title">${task.content}</span>
 			<div class="task__options">
 				<button onclick="editTaskContentById(${task.id},${columnId})">
