@@ -24,6 +24,7 @@ export function handleAddColumnButtonClick() {
 	console.log("The column name is", inputColumnValue);
 
 	const newColumn = {
+		id: Date.now(),
 		title: inputColumnValue,
 		tasks: [],
 	};
@@ -65,13 +66,15 @@ function getColumnHTML(column) {
 		<div class="column" id="${column.id}">
 			<div class="column__header">
 				<span class="column__title">${column.title}</span>	
-				<button class="column__options">
-					<i class="fa-solid fa-ellipsis"></i>
-				</button>
+				<div class="column__options">
+						<button onclick="deleteColumnById(${column.id})">
+						<i class="fa-regular fa-trash-can"></i>
+					</button>
+				</div>
 			</div>
-			<section class="column__tasks">${column.tasks
-				.map(getColumnTaskHTML)
-				.join("")}</section>
+			<section class="column__tasks" id="tasks-${column.id}">${column.tasks
+		.map(getColumnTaskHTML)
+		.join("")}</section>
 			<button class="column__create-button">
 				<i class="fa-solid fa-plus"></i>
 				<span>Adicionar tarefa</span>

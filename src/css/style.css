@@ -120,6 +120,10 @@
 
 .column__options {
 	color: var(--textWhite);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
 }
 
 .column__tasks {
