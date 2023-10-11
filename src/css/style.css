@@ -152,6 +152,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: 1rem;
 }
 
 .task__options {
@@ -163,6 +164,52 @@
 	font-size: 1rem;
 }
 
+.create-task-form {
+	margin-top: 1rem;
+	background-color: var(--darkThird);
+	width: 100%;
+	padding: 0.75rem;
+	border-radius: 0.5rem;
+}
+
+.create-task-form__input {
+	display: block;
+	color: var(--textWhite);
+	background-color: transparent;
+	outline: transparent;
+	border: none;
+	font-size: 1rem;
+	margin-bottom: 1rem;
+	opacity: 70%;
+}
+
+.create-task-form__buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.create-task-form__add {
+	background-color: var(--darkFourth);
+	padding: 0.5rem 0.75rem;
+	color: var(--textWhite);
+	font-size: 1rem;
+	border-radius: 0.5rem;
+}
+
+.create-task-form__cancel {
+	background-color: var(--darkFourth);
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 100%;
+	color: var(--textWhite);
+	font-size: 1rem;
+}
 .create-column-button {
 	background-color: var(--darkSecondary);
 	padding: 0.75rem;
