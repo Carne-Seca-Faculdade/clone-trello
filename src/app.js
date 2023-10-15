@@ -1,3 +1,5 @@
+// LOGS DO FUNCIONAMENTO DISPONÍVEIS NO CONSOLE (F12)
+
 // CRIANDO STORE
 // CRIANDO OBJETO QUE VAI ARMAZENAR OS DADOS
 const Store = {
@@ -27,7 +29,7 @@ function getFromLocalStorage(localStorageKey) {
 
 // FUNÇÃO QUE ATUALIZA UM ITEM DO LOCALSTORAGE
 function updateLocalStorage(localStorageKey, data) {
-	console.log(`Setting ${data} as content for key ${localStorageKey}`);
+	console.log(`Setting ${localStorageKey} key as `, data);
 	const dataAsJson = JSON.stringify(data);
 	localStorage.setItem(localStorageKey, dataAsJson);
 }
@@ -145,16 +147,43 @@ function editColumnTitleById(columnId) {
 function handleTaskDropByDrag(event) {
 	event.preventDefault();
 	console.log("Task was dropped");
+
+	const columnId = Number(getColumnTasksContainer(event));
+
 	try {
 		const task = event.dataTransfer.getData("application/json");
-		const taskAsObject = JSON.parse(task);
-		const columnId = event.target.id.split("-")[1];
-		const taskHTML = getColumnTaskHTML(taskAsObject, columnId);
-		console.log("The task dropped is", taskAsObject);
-		console.log("The column id is", columnId);
-		console.log("The task HTML is", taskHTML);
+		const { fromColumn, id, content } = JSON.parse(task);
+		const taskToBeAdded = {
+			id: Number(id),
+			content,
+		};
+
+		if (columnId === fromColumn) {
+			console.log(
+				"User tried to move task to the same column where the task is"
+			);
+			return;
+		}
+
 		const tasksContainer = document.querySelector(`#tasks-${columnId}`);
+		const allColumns = [...window.app.store.columns];
+		const columnToAddTask = allColumns.find(
+			(column) => column.id === columnId
+		);
+		const columnToDeleteTask = allColumns.find(
+			(column) => column.id === fromColumn
+		);
+
+		columnToAddTask.tasks = [...columnToAddTask.tasks, taskToBeAdded];
+		columnToDeleteTask.tasks = columnToDeleteTask.tasks.filter(
+			(task) => task.id !== taskToBeAdded.id
+		);
+
+		const taskHTML = getColumnTaskHTML(taskToBeAdded, columnId);
 		tasksContainer.innerHTML += taskHTML;
+		console.log("New columns are ", allColumns);
+		updateLocalStorage("columns", allColumns);
+		renderColumns();
 	} catch (error) {
 		alert("Erro ao mover tarefa");
 		console.log(error);
@@ -241,6 +270,7 @@ function editTaskContentById(taskId, columnId) {
 	}
 
 	taskToEdit.content = newTaskContent;
+	updateLocalStorage("columns", allColumns);
 	renderColumns();
 }
 
@@ -262,18 +292,8 @@ function deleteTaskById(taskId, columnId) {
 	);
 
 	columnToEditTask.tasks = tasksWithoutDeleted;
+	updateLocalStorage("columns", allColumns);
 	renderColumns();
-}
-
-function handleAddTaskButtonClick(columnId) {
-	event.preventDefault();
-	console.log("Add task button was clicked");
-	const createTaskForm = document.querySelector(".create-task-form");
-	const createTaskInput = document.querySelector(".create-task-form__input");
-	const taskContent = createTaskInput.value.trim();
-	console.log("The task name is", taskContent);
-	createTask(taskContent, columnId);
-	createTaskForm.remove();
 }
 
 function handleCreateTaskButtonClick(columnId) {
@@ -300,13 +320,22 @@ function handleCancelTaskButtonClick(columnId) {
 	createTaskButton.classList.toggle("hidden");
 }
 
-function handleTaskDrag(event) {
+function handleTaskDrag(event, columnId) {
 	console.log("Task was dragged");
+	console.log("Task from column ", columnId);
+
+	const taskTitleElement = event.target.querySelector(".task__title");
+	if (!taskTitleElement) {
+		console.warn("No task content found");
+		return;
+	}
 
 	const task = {
+		fromColumn: columnId,
 		id: event.target.id,
-		content: event.target.querySelector(".task__title").textContent,
+		content: taskTitleElement.textContent,
 	};
+
 	const taskAsJson = JSON.stringify(task);
 	event.dataTransfer.setData("application/json", taskAsJson);
 }
@@ -345,7 +374,7 @@ function getColumnHTML(column) {
 function getColumnTaskHTML(task, columnId) {
 	console.log("the task received is ", task);
 	return `
-		<article class="task" id="${task.id}" draggable="true" ondragstart="handleTaskDrag(event)">
+		<article class="task" id="${task.id}" draggable="true" ondragstart="handleTaskDrag(event, ${columnId})">
 			<span class="task__title">${task.content}</span>
 			<div class="task__options">
 				<button onclick="editTaskContentById(${task.id},${columnId})">
@@ -375,6 +404,25 @@ function getCreateTaskFormHTML(columnId) {
 		</div>
 	</div>
 	`;
+}
+
+// OUTRAS FUNÇÕES
+
+function getColumnTasksContainer(event) {
+	let target = event.target;
+	let parentNode = event.target.parentNode;
+
+	if (target.id.includes("column")) {
+		const columnId = target.id.split("-")[1];
+		return columnId;
+	}
+
+	while (!parentNode.id.includes("column")) {
+		parentNode = parentNode.parentNode;
+	}
+
+	const columnId = parentNode.id.split("-")[1];
+	return columnId;
 }
 
 // FUNÇÃO QUE INICIALIZA O APP
