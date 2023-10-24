@@ -1,19 +1,32 @@
-// LOGS DO FUNCIONAMENTO DISPONÍVEIS NO CONSOLE (F12)
-
-// CRIANDO STORE
-// CRIANDO OBJETO QUE VAI ARMAZENAR OS DADOS
 const Store = {
 	backgroundColor: null,
 	columns: null,
+
+	init() {
+		const columns = getFromLocalStorage("columns", []);
+		const backgroundColor = getFromLocalStorage(
+			"backgroundColor",
+			"#2b2b2b"
+		);
+
+		this.backgroundColor = backgroundColor;
+		this.columns = columns;
+	},
+
+	saveColumns(columns) {
+		this.columns = columns;
+		updateLocalStorage("columns", columns);
+		window.dispatchEvent(new CustomEvent("columnsUpdate"));
+	},
+
+	saveBackgroundColor(backgroundColor) {
+		this.backgroundColor = backgroundColor;
+		updateLocalStorage("backgroundColor", backgroundColor);
+		window.dispatchEvent(new CustomEvent("backgroundColorUpdate"));
+	},
 };
 
-window.app = {
-	store: Store,
-};
-
-// FUNÇÕES DE ACESSO AO LOCALSTORAGE
-// FUNÇÃO QUE PEGA UM ITEM DO LOCALSTORAGE
-function getFromLocalStorage(localStorageKey) {
+function getFromLocalStorage(localStorageKey, defaultValue) {
 	try {
 		console.log(`Fetching ${localStorageKey} from localStorage`);
 		const dataFromLocalStorage = localStorage.getItem(localStorageKey);
@@ -25,16 +38,16 @@ function getFromLocalStorage(localStorageKey) {
 			const dataAsJson = JSON.parse(dataFromLocalStorage);
 			return dataAsJson;
 		}
+		return defaultValue;
 	} catch (error) {
 		console.log(
 			`Error while fetching ${localStorageKey} from localStorage, setting null instead`
 		);
 		console.error(error);
-		return null;
+		return defaultValue;
 	}
 }
 
-// FUNÇÃO QUE ATUALIZA UM ITEM DO LOCALSTORAGE
 function updateLocalStorage(localStorageKey, data) {
 	try {
 		console.log(`Setting ${localStorageKey} key as `, data);
@@ -46,40 +59,17 @@ function updateLocalStorage(localStorageKey, data) {
 	}
 }
 
-// FUNÇÕES DE CARREGAMENTO DE DADOS
-// FUNÇÃO QUE CARREGA A COR DE FUNDO
-function loadBackgroundColor() {
-	const backgroundColor = getFromLocalStorage("backgroundColor");
+function renderBackgroundColor() {
 	const colorPickerInput = document.querySelector("#colorPickerInput");
-
-	if (!backgroundColor) {
-		return;
-	}
-
-	app.store.backgroundColor = backgroundColor;
+	const backgroundColor = Store.backgroundColor;
 	colorPickerInput.value = backgroundColor;
 	document.body.style.backgroundColor = backgroundColor;
 }
 
-// FUNÇÃO QUE CARREGA AS COLUNAS
-function loadColumns() {
-	const columns = getFromLocalStorage("columns");
-	app.store.columns = columns || [];
-}
-
-// FUNÇÕES DE MUDANÇA DE COR DE FUNDO
-// FUNÇÃO RESPONSÁVEL POR MUDAR A COR DE FUNDO
 function handleColorInputValueChange(event) {
 	const inputColorValue = event.target.value;
 	console.log("The color picked is ", inputColorValue);
-	document.body.style.backgroundColor = inputColorValue;
-	updateLocalStorage("backgroundColor", inputColorValue);
-}
-
-// FUNÇÕES DAS COLUNAS
-function handleCreateColumnButtonClick() {
-	console.log("Create column button was clicked");
-	handleCreateColumnToggle();
+	Store.saveBackgroundColor(inputColorValue);
 }
 
 function handleAddColumnButtonClick() {
@@ -99,13 +89,12 @@ function handleAddColumnButtonClick() {
 		title: inputColumnValue,
 		tasks: [],
 	};
-	app.store.columns.push(newColumn);
-
-	createColumnInput.value = "";
 	console.log("The new column is", newColumn);
+
+	const allColumns = [...Store.columns, newColumn];
+	createColumnInput.value = "";
+	Store.saveColumns(allColumns);
 	handleCreateColumnToggle();
-	updateLocalStorage("columns", app.store.columns);
-	renderColumns();
 }
 
 function handleCancelColumnButtonClick() {
@@ -123,14 +112,16 @@ function handleCreateColumnToggle() {
 }
 
 function deleteColumnById(columnId) {
+	if (!confirm("Tem certeza que deseja excluir a coluna?")) {
+		return;
+	}
+
 	console.log("Deleting column with id", columnId);
-	const columns = window.app.store.columns;
+	const columns = Store.columns;
 	const columnsWithoutDeleted = columns.filter(
 		(column) => column.id !== columnId
 	);
-	app.store.columns = columnsWithoutDeleted;
-	updateLocalStorage("columns", columnsWithoutDeleted);
-	renderColumns();
+	Store.saveColumns(columnsWithoutDeleted);
 }
 
 function editColumnTitleById(columnId) {
@@ -143,7 +134,7 @@ function editColumnTitleById(columnId) {
 		return;
 	}
 
-	const allColumns = window.app.store.columns;
+	const allColumns = Store.columns;
 	const columnToEdit = allColumns.find((column) => column.id === columnId);
 
 	if (!columnToEdit) {
@@ -152,8 +143,7 @@ function editColumnTitleById(columnId) {
 	}
 
 	columnToEdit.title = newColumnTitle;
-	updateLocalStorage("columns", allColumns);
-	renderColumns();
+	Store.saveColumns(allColumns);
 }
 
 function handleTaskDropByDrag(event) {
@@ -178,7 +168,7 @@ function handleTaskDropByDrag(event) {
 		}
 
 		const tasksContainer = document.querySelector(`#tasks-${columnId}`);
-		const allColumns = [...window.app.store.columns];
+		const allColumns = Store.columns;
 		const columnToAddTask = allColumns.find(
 			(column) => column.id === columnId
 		);
@@ -194,8 +184,7 @@ function handleTaskDropByDrag(event) {
 		const taskHTML = getColumnTaskHTML(taskToBeAdded, columnId);
 		tasksContainer.innerHTML += taskHTML;
 		console.log("New columns are ", allColumns);
-		updateLocalStorage("columns", allColumns);
-		renderColumns();
+		Store.saveColumns(allColumns);
 	} catch (error) {
 		alert("Erro ao mover tarefa");
 		console.error(error);
@@ -210,7 +199,7 @@ function renderColumns() {
 	const columnsContainer = document.querySelector(".columns");
 	columnsContainer.innerHTML = "";
 
-	const columns = window.app.store.columns;
+	const columns = Store.columns;
 	if (columns.length === 0) {
 		handleCreateColumnToggle();
 	}
@@ -221,7 +210,6 @@ function renderColumns() {
 	}
 }
 
-// FUNÇÕES DAS TAREFAS
 function createTask(columnId) {
 	console.log("create task ", columnId);
 	const createTaskInput = document.querySelector(".create-task-form__input");
@@ -239,7 +227,7 @@ function createTask(columnId) {
 
 	console.log(columnId);
 
-	const allColumns = window.app.store.columns;
+	const allColumns = Store.columns;
 	const columnToAddTask = allColumns.find((column) => column.id === columnId);
 
 	if (!columnToAddTask) {
@@ -248,12 +236,11 @@ function createTask(columnId) {
 	}
 
 	columnToAddTask.tasks.push(newTask);
-	updateLocalStorage("columns", allColumns);
-	renderColumns();
+	Store.saveColumns(allColumns);
 }
 
 function editTaskContentById(taskId, columnId) {
-	const allColumns = window.app.store.columns;
+	const allColumns = Store.columns;
 	const columnToEditTask = allColumns.find((column) => {
 		console.log(column);
 		return column.id === columnId;
@@ -282,12 +269,15 @@ function editTaskContentById(taskId, columnId) {
 	}
 
 	taskToEdit.content = newTaskContent;
-	updateLocalStorage("columns", allColumns);
-	renderColumns();
+	Store.saveColumns(allColumns);
 }
 
 function deleteTaskById(taskId, columnId) {
-	const allColumns = window.app.store.columns;
+	if (!confirm("Tem certeza que deseja excluir a tarefa?")) {
+		return;
+	}
+
+	const allColumns = Store.columns;
 	const columnToEditTask = allColumns.find(
 		(column) => column.id === columnId
 	);
@@ -304,8 +294,7 @@ function deleteTaskById(taskId, columnId) {
 	);
 
 	columnToEditTask.tasks = tasksWithoutDeleted;
-	updateLocalStorage("columns", allColumns);
-	renderColumns();
+	Store.saveColumns(allColumns);
 }
 
 function handleCreateTaskButtonClick(columnId) {
@@ -333,12 +322,9 @@ function handleCancelTaskButtonClick(columnId) {
 }
 
 function handleTaskDrag(event, columnId) {
-	console.log("Task was dragged");
-	console.log("Task from column ", columnId);
-
 	const taskTitleElement = event.target.querySelector(".task__title");
 	if (!taskTitleElement) {
-		console.warn("No task content found");
+		console.error("No task content found");
 		return;
 	}
 
@@ -352,7 +338,6 @@ function handleTaskDrag(event, columnId) {
 	event.dataTransfer.setData("application/json", taskAsJson);
 }
 
-// FUNÇÕES DE GERAR HTML
 function getColumnHTML(column) {
 	return `
 		<div class="column" id="column-${
@@ -418,8 +403,6 @@ function getCreateTaskFormHTML(columnId) {
 	`;
 }
 
-// OUTRAS FUNÇÕES
-
 function getColumnTasksContainer(event) {
 	let target = event.target;
 	let parentNode = event.target.parentNode;
@@ -437,19 +420,20 @@ function getColumnTasksContainer(event) {
 	return columnId;
 }
 
-// FUNÇÃO QUE INICIALIZA O APP
 window.addEventListener("DOMContentLoaded", () => {
-	loadBackgroundColor();
-	loadColumns();
+	Store.init();
 	renderColumns();
+	renderBackgroundColor();
 
 	const colorPickerInput = document.querySelector("#colorPickerInput");
 	const createColumnButton = document.querySelector(".create-column-button");
 	const addColumnButton = document.querySelector(".create-column__add");
 	const cancelColumnButton = document.querySelector(".create-column__cancel");
 
-	createColumnButton.addEventListener("click", handleCreateColumnButtonClick);
+	createColumnButton.addEventListener("click", handleCreateColumnToggle);
 	addColumnButton.addEventListener("click", handleAddColumnButtonClick);
 	cancelColumnButton.addEventListener("click", handleCancelColumnButtonClick);
 	colorPickerInput.addEventListener("change", handleColorInputValueChange);
+	window.addEventListener("columnsUpdate", renderColumns);
+	window.addEventListener("backgroundColorUpdate", renderBackgroundColor);
 });
