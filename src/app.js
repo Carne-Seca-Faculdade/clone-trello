@@ -1,8 +1,8 @@
 // GABRIEL
 // FUNÇÃO QUE DEFINE AS VARIÁVEIS E FUNÇÃO PARA SALVAR OS DADOS NO LOCALSTORAGE
 const Store = {
-	backgroundColor: null,
-	columns: null,
+	_backgroundColor: null,
+	_columns: null,
 
 	init() {
 		const columns = getFromLocalStorage("columns", []);
@@ -11,18 +11,28 @@ const Store = {
 			"#2b2b2b"
 		);
 
-		this.backgroundColor = backgroundColor;
-		this.columns = columns;
+		this._backgroundColor = backgroundColor;
+		this._columns = columns;
+	},
+
+	get columns() {
+		console.log("Getting columns");
+		return JSON.parse(JSON.stringify(this._columns));
+	},
+
+	get backgroundColor() {
+		console.log("Getting background");
+		return this._backgroundColor;
 	},
 
 	saveColumns(columns) {
-		this.columns = columns;
+		this._columns = columns;
 		updateLocalStorage("columns", columns);
 		window.dispatchEvent(new CustomEvent("columnsUpdate"));
 	},
 
 	saveBackgroundColor(backgroundColor) {
-		this.backgroundColor = backgroundColor;
+		this._backgroundColor = backgroundColor;
 		updateLocalStorage("backgroundColor", backgroundColor);
 		window.dispatchEvent(new CustomEvent("backgroundColorUpdate"));
 	},
